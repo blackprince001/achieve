@@ -15,22 +15,22 @@ func RunMigrations(db *gorm.DB, models ...interface{}) error {
 }
 
 // GeneratePostgresURI generated your postgres DSN using your environment keys.
-func GeneratePostgresURI(config *core.Config) string {
+func GeneratePostgresURI(c *config.Config) string {
 	var (
-		dbUrl    = config.DATABASE_URL
-		host     = config.PG_HOST
-		port     = config.PG_PORT
-		dbname   = config.PG_NAME
-		user     = config.PG_USER
-		password = config.PG_PASS
+		dbUrl    = c.DATABASE_URL
+		host     = c.PG_HOST
+		port     = c.PG_PORT
+		dbname   = c.PG_NAME
+		user     = c.PG_USER
+		password = c.PG_PASS
 	)
-	if config.ENVIRONMENT == core.Development {
+	if c.ENVIRONMENT == config.Development {
 		dbUrl = fmt.Sprintf("postgresql://%s:%s@%s:%s/%s", user, password, host, port, dbname)
 	}
 	return dbUrl
 }
 
-func NewPostgres(config *core.Config) (*gorm.DB, error) {
+func NewPostgres(config *config.Config) (*gorm.DB, error) {
 	var (
 		db  *gorm.DB
 		err error

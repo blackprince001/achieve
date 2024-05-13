@@ -4,20 +4,19 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/topboyasante/achieve/core"
-	"github.com/topboyasante/achieve/core/database"
-	"github.com/topboyasante/achieve/models"
+	"github.com/topboyasante/achieve/data"
+	"github.com/topboyasante/achieve/config"
 )
 
 func main() {
-	config := core.NewConfig()
+	config := config.NewConfig()
 
-	pg, err := database.NewPostgres(config)
+	pg, err := data.NewPostgres(config)
 	if err != nil {
 		log.Fatal("failed to initialize postgres database. err:", err)
 	}
 
-	err = database.RunMigrations(pg, &models.Transaction{}, &models.User{}, &models.Wallet{})
+	err = data.RunMigrations(pg, &data.Transaction{}, &data.User{}, &data.Wallet{})
 	if err != nil {
 		log.Fatal("failed to run migrations. err:", err)
 	}
