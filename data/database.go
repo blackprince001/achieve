@@ -1,8 +1,8 @@
-package database
+package data
 
 import (
 	"fmt"
-	"github.com/topboyasante/achieve/core"
+	"github.com/topboyasante/achieve/config"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -29,7 +29,6 @@ func GeneratePostgresURI(config *core.Config) string {
 	}
 	return dbUrl
 }
-
 
 func NewPostgres(config *core.Config) (*gorm.DB, error) {
 	var (
